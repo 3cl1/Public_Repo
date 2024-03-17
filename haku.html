@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $('[name="submit"]').click(function () {
+          var nimi = $("#nimi").val();
+
+          $.ajax({
+            type: "GET",
+            url: "http://a41d.k.time4vps.cloud:3001/henkilot",
+            data: { nimi: nimi, filter: "nimi" },
+            success: function (data) {
+              if (data.length > 0) {
+                var oikeaHenkilo = data.find(function (henkilo) {
+                  return henkilo.nimi === nimi;
+                });
+
+                if (oikeaHenkilo) {
+                  $("#puhelin").val(oikeaHenkilo.puhelin);
+                } else {
+                  $("#puhelin").val("");
+                  alert("Henkilöä ei löytynyt.");
+                }
+              } else {
+                $("#puhelin").val("");
+                alert("Henkilöä ei löytynyt.");
+              }
+            },
+            error: function () {
+              // Virhenkäsittely
+              alert("Virhe tapahtui. Yritä uudelleen.");
+            },
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <form id="form" name="form">
+      <table>
+        <tr>
+          <th>Syötä nimi:</th>
+          <td>
+            <input
+              name="nimi"
+              id="nimi"
+              type="text"
+              value=""
+              maxlength="35"
+              size="35"
+            />
+          </td>
+          <td>
+            <input
+              name="puhelin"
+              id="puhelin"
+              type="text"
+              value=""
+              maxlength="35"
+              size="35"
+            />
+          </td>
+          <td>
+            <input name="submit" type="button" value="Hae puhelinnumero" />
+          </td>
+        </tr>
+      </table>
+    </form>
+    <ul>
+      <li><a href="index.html">Paluu pääsivulle</a></li>
+    </ul>
+  </body>
+</html>

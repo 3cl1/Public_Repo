@@ -1,0 +1,72 @@
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Puhelinluettelo</title>
+
+    <!-- INCLUDING JQUERY-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- CSS FOR STYLING THE PAGE -->
+    <style>
+      /* Taulukon tyyli */
+      table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+        }
+
+        /* Taulukon otsikoiden tyyli */
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Parillisten rivien taustaväri */
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Hiiren ollessa rivin päällä, muuta taustaväriä */
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+  </head>
+
+  <body>
+    
+    </script>
+    <section>
+      <h1>Puhelinluettelo</h1>
+
+      <!-- TABLE CONSTRUCTION-->
+      <table id="table">
+        <!-- HEADING FORMATION -->
+        <tr>
+          <th>Nimi</th>
+          <th>Puhelin</th>
+        </tr>
+      </table>
+      <script>
+                    $(document).ready(function () {
+                        // FETCHING DATA FROM JSON FILE
+                        $.getJSON("http://a41d.k.time4vps.cloud:3001/henkilot",
+                          function (data) {
+
+                            <!--TÄSSÄ MUODOSTA TAULUKKO DATASTA -->
+                            $.each(data, function (index, item) {
+                // Append a new row to the table
+                $('#table').append('<tr><td>' + item.nimi + '</td><td>' + item.puhelin + '</td></tr>');             
+                            });
+                          });
+
+                         });
+      </script>
+    </section>
+    <ul>
+      <li><a href="index.html">Paluu pääsivulle</a></li>
+    </ul>
+  </body>
+</html>
+
